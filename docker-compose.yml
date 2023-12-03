@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    image: python:3.9
+    container_name: myblog_web
+    command: bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: myblog_db
+    environment:
+      POSTGRES_DB: myblog
+      POSTGRES_USER: luis
+      POSTGRES_PASSWORD: divine02
